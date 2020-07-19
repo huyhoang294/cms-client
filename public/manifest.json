@@ -1,0 +1,25 @@
+{
+  "short_name": "DHD Admin",
+  "name": "DHD Admin App",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x47",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x142"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "496x368"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
