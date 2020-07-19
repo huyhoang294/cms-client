@@ -427,7 +427,7 @@ class CabinetPage extends Component {
   }
 
   updateCabinet() {
-    axios.get("/api/cabinet/").then((res) => {
+    axios.get("https://dhd-server.herokuapp.com/api/cabinet/").then((res) => {
       this.setState({ cabinet: res.data });
     });
   }
