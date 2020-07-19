@@ -157,7 +157,7 @@ class UserFormDialog extends Component {
       birthday: this.state.birthday,
       phonenum: this.state.phoneNum,
     };
-    axios.post("/api/appuser/updateprofile", userProfile).then((res) => {
+    axios.post("https://dhd-server.herokuapp.com/api/appuser/updateprofile", userProfile).then((res) => {
       if (res.data.success) {
         this.setState({
           modal: (

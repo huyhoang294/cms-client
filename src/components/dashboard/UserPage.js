@@ -421,14 +421,14 @@ class UserPage extends Component {
   }
 
   updateUser() {
-    axios.get("/api/appuser/").then((res) => {
+    axios.get("https://dhd-server.herokuapp.com/api/appuser/").then((res) => {
       this.setState({ user: res.data });
     });
   }
 
   listener() {
     axios
-      .get("/api/appuser/listener", { cancelToken: source.token })
+      .get("https://dhd-server.herokuapp.com/api/appuser/listener", { cancelToken: source.token })
       .then((res) => {
         if (res.data && this.state.searchString.length === 0) {
           this.updateUser();

@@ -274,7 +274,7 @@ class StationPage extends Component {
   }
 
   componentDidMount() {
-    axios.get("/api/dashboard/station").then((res) => {
+    axios.get("https://dhd-server.herokuapp.com/api/dashboard/station").then((res) => {
       this.setState({ station: res.data });
     });
   }

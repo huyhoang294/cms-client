@@ -434,7 +434,7 @@ class CabinetPage extends Component {
 
   listener() {
     axios
-      .get("/api/cabinet/listener", { cancelToken: source.token })
+      .get("https://dhd-server.herokuapp.com/api/cabinet/listener", { cancelToken: source.token })
       .then((res) => {
         if (res.data && this.state.searchString.length === 0) {
           this.updateCabinet();

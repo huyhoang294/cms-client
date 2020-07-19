@@ -291,14 +291,14 @@ class HomePage extends Component {
   }
 
   updateDashboard() {
-    axios.get("/api/dashboard").then((res) => {
+    axios.get("https://dhd-server.herokuapp.com/api/dashboard").then((res) => {
       this.setState({ result: res.data });
     });
   }
 
   listener() {
     axios
-      .get("/api/dashboard/listener", { cancelToken: source.token })
+      .get("https://dhd-server.herokuapp.com/api/dashboard/listener", { cancelToken: source.token })
       .then((res) => {
         if (res.data) {
           this.updateDashboard();
