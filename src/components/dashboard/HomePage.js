@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Grid, CardContent, Typography } from "@material-ui/core";
+import {
+  Grid,
+  CardContent,
+  Typography,
+  Button,
+  FormControl,
+  InputLabel,
+  Select,
+} from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
 import CardDashBoard from "../Card/CardDashBoard";
 import moneyIcon from "../../public/img/moneyIcon.svg";
@@ -19,7 +27,8 @@ class HomePage extends Component {
     result: null,
     data: null,
     startDate: Date.now(),
-    endDate: Date.now(),
+    stationId: null,
+    // endDate: Date.now(),
   };
   render() {
     return (
@@ -74,12 +83,12 @@ class HomePage extends Component {
             <div style={{ paddingTop: "50px" }}>
               <Card>
                 <CardContent>
-                  <Grid container spacing={5} style={{paddingBottom: "20px"}}>
+                  {/* <Grid container spacing={5} style={{ paddingBottom: "20px" }}>
                     <Grid item>
                       <MuiPickersUtilsProvider utils={MomentUtils}>
-                        <Grid container alignItems="flex-end">
+                        <Grid container alignItems="flex-end" style={{paddingTop: "17px"}}>
                           <Grid item style={{ paddingRight: "5px" }}>
-                            <Typography>Start Date</Typography>
+                            <Typography>Date</Typography>
                           </Grid>
                           <Grid item>
                             <DatePicker
@@ -94,38 +103,73 @@ class HomePage extends Component {
                       </MuiPickersUtilsProvider>
                     </Grid>
                     <Grid item>
-                      <MuiPickersUtilsProvider utils={MomentUtils}>
-                        <Grid container alignItems="flex-end">
-                          <Grid item style={{ paddingRight: "5px" }}>
-                            <Typography>End Date</Typography>
-                          </Grid>
-                          <Grid item>
-                            <DatePicker
-                              value={this.state.endDate}
-                              format="DD/MM/yyyy"
-                              onChange={(value) => {
-                                this.setState({ startDate: value });
-                              }}
-                            />
-                          </Grid>
+                      <Grid container alignItems="flex-end">
+                        <Grid item style={{ paddingRight: "5px" }}>
+                          <Typography>Station</Typography>
                         </Grid>
-                      </MuiPickersUtilsProvider>
+                        <Grid item>
+                          <FormControl>
+                            <InputLabel>Station</InputLabel>
+                            <Select
+                              native
+                              value={this.state.stationId}
+                              onChange={(e) => {
+                                this.setState({ stationId: e.target.value });
+                              }}
+                              inputProps={{
+                                name: "Station",
+                              }}
+                            >
+                              <option aria-label="None" value="" />
+                              {this.state.result
+                                ? this.state.result.station.listStation.map(
+                                    (station) => {
+                                      return (<option value={station.stationId}>
+                                        {station.placeName +
+                                          " " +
+                                          station.location}
+                                      </option>);
+                                    }
+                                  )
+                                : null}
+                            </Select>
+                          </FormControl>
+                        </Grid>
+                      </Grid>
                     </Grid>
-                  </Grid>
+                    <Grid item>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        style={{
+                          background:
+                            "linear-gradient(90deg, rgba(248,78,78,1) 0%, rgba(214,65,208,1) 100%)",
+                          height: "35px",
+                        }}
+                        onClick={() => {
+                          axios
+                            .get(
+                              "https://dhd-server.herokuapp.com/api/dashboard/chart",
+                              {
+                                params: {
+                                  date: this.state.startDate,
+                                  stationId: this.state.stationId,
+                                },
+                              }
+                            )
+                            .then((res) => {
+                              this.setState({ cabinet: res.data });
+                            });
+                        }}
+                      >
+                        Generate
+                      </Button>
+                    </Grid>
+                  </Grid> */}
 
-                  {/* {this.state.data ? ( */}
-                  <CustomChart
-                    data={[
-                      { argument: "6:30", value: 100 },
-                      { argument: "7:00", value: 300 },
-                      { argument: "7:30", value: 420 },
-                      { argument: "8:00", value: 380 },
-                      { argument: "8:30", value: 500 },
-                      { argument: "9:00", value: 250 },
-                      { argument: "9:30", value: 600 },
-                    ]}
-                  />
-                  {/* ) : null} */}
+                  {this.state.data ? (
+                    <CustomChart data={this.state.data} />
+                  ) : null}
                 </CardContent>
               </Card>
             </div>
@@ -296,9 +340,19 @@ class HomePage extends Component {
     });
   }
 
+  updateChart() {
+    axios
+      .get("https://dhd-server.herokuapp.com/api/dashboard/chart")
+      .then((res) => {
+        this.setState({ data: res.data });
+      });
+  }
+
   listener() {
     axios
-      .get("https://dhd-server.herokuapp.com/api/dashboard/listener", { cancelToken: source.token })
+      .get("https://dhd-server.herokuapp.com/api/dashboard/listener", {
+        cancelToken: source.token,
+      })
       .then((res) => {
         if (res.data) {
           this.updateDashboard();
@@ -313,7 +367,8 @@ class HomePage extends Component {
     CancelToken = axios.CancelToken;
     source = CancelToken.source();
     this.updateDashboard();
-    // this.listener();
+    this.updateChart();
+    this.listener();
   }
 
   componentWillUnmount() {

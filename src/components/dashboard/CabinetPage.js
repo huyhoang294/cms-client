@@ -152,7 +152,7 @@ class CabinetPage extends Component {
                       setTimeout(
                         (searchString) => {
                           axios
-                            .get("/api/cabinet/search", {
+                            .get("https://dhd-server.herokuapp.com/api/cabinet/search", {
                               params: {
                                 searchString: searchString,
                               },
@@ -195,7 +195,7 @@ class CabinetPage extends Component {
                           aria-label="Deactive"
                           onClick={() => {
                             axios
-                              .post("/api/cabinet/deactive", {
+                              .post("https://dhd-server.herokuapp.com/api/cabinet/deactive", {
                                 data: this.state.selected,
                                 active: false,
                               })
@@ -216,7 +216,7 @@ class CabinetPage extends Component {
                           style={{ marginLeft: "5px" }}
                           onClick={() => {
                             axios
-                              .post("/api/cabinet/deactive", {
+                              .post("https://dhd-server.herokuapp.com/api/cabinet/deactive", {
                                 data: this.state.selected,
                                 active: true,
                               })
@@ -449,7 +449,7 @@ class CabinetPage extends Component {
     CancelToken = axios.CancelToken;
     source = CancelToken.source();
     this.updateCabinet();
-    // this.listener();
+    this.listener();
   }
 
   componentWillUnmount() {

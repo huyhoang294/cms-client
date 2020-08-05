@@ -443,7 +443,7 @@ class UserPage extends Component {
     CancelToken = axios.CancelToken;
     source = CancelToken.source();
     this.updateUser();
-    // this.listener();
+    this.listener();
   }
 
   componentWillUnmount() {
