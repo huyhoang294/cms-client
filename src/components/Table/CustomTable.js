@@ -79,7 +79,8 @@ class CustomTable extends Component {
       onSelectAllClick,
       numSelected,
       rowCount,
-      toolTip
+      toolTip,
+      disableCheckBox,
     } = this.props;
     return (
       <div className={classes.tableResponsive}>
@@ -97,14 +98,19 @@ class CustomTable extends Component {
             {tableHead !== undefined ? (
               <TableHead>
                 <TableRow className={classes.tableHeadRow}>
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      indeterminate={numSelected > 0 && numSelected < rowCount}
-                      checked={rowCount > 0 && numSelected === rowCount}
-                      onChange={onSelectAllClick}
-                      inputProps={{ "aria-label": "select all desserts" }}
-                    />
-                  </TableCell>
+                  {disableCheckBox ? null : (
+                    <TableCell padding="checkbox">
+                      <Checkbox
+                        indeterminate={
+                          numSelected > 0 && numSelected < rowCount
+                        }
+                        checked={rowCount > 0 && numSelected === rowCount}
+                        onChange={onSelectAllClick}
+                        inputProps={{ "aria-label": "select all desserts" }}
+                      />
+                    </TableCell>
+                  )}
+
                   {tableHead.map((prop, key) => {
                     return (
                       <TableCell

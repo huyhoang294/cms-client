@@ -23,10 +23,11 @@ class DesktopDialog extends Component {
       customSaveButt,
       disabledSave,
       disabledCancel,
+      fullWidth,
     } = this.props;
 
     return (
-      <Dialog open onClose={onClose}>
+      <Dialog open onClose={onClose} fullWidth={!!fullWidth} maxWidth={"lg"}>
         <DialogTitle>{title}</DialogTitle>
         <DialogContent>{this.props.children}</DialogContent>
         <DialogActions>

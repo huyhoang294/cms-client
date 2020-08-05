@@ -8,6 +8,7 @@ import {
   FormControl,
   InputLabel,
   Select,
+  CircularProgress
 } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
 import CardDashBoard from "../Card/CardDashBoard";
@@ -73,8 +74,8 @@ class HomePage extends Component {
                   avatar={<img src={moneyIcon} />}
                   subTitle={"Target Profit: "}
                   title={"Profit"}
-                  total={"1000"}
-                  value={"500"}
+                  total={"10000000"}
+                  value={this.state.result.profit.total}
                   label={"Current"}
                 />
               </Grid>
@@ -169,7 +170,11 @@ class HomePage extends Component {
 
                   {this.state.data ? (
                     <CustomChart data={this.state.data} />
-                  ) : null}
+                  ) : (
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                      <CircularProgress style={{ padding: "10px" }} />
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </div>

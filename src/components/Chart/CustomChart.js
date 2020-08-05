@@ -6,6 +6,7 @@ import {
   ValueAxis,
   Chart,
   LineSeries,
+  Title
 } from "@devexpress/dx-react-chart-material-ui";
 import { withStyles } from "@material-ui/core/styles";
 import classnames from "classnames";
@@ -22,6 +23,9 @@ class CustomChart extends Component {
         <ValueAxis />
 
         <LineSeries valueField="value" argumentField="argument" />
+        <Title
+            text="Cabinet open times"
+          />
       </Chart>
     );
   }

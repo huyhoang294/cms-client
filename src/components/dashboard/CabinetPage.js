@@ -30,6 +30,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import HistoryLogDialog from '../Dialog/HistoryLogDialog';
 
 let CancelToken = null;
 let source = null;
@@ -129,13 +130,26 @@ class CabinetPage extends Component {
           </Grid>
           <Grid item>
             <div style={{ display: "flex", flexDirection: "row" }}>
-              <Button
+              {/* <Button
                 variant="contained"
                 color="primary"
                 classes={{ containedPrimary: classes.addButtonCustom }}
+                onClick={() => {
+                  this.setState({
+                    modal: (
+                      <HistoryLogDialog
+                        type={"Cabinet"}
+                        id={cabinet._id}
+                        onClose={() => {
+                          this.setState({ modal: null });
+                        }}
+                      />
+                    ),
+                  });
+                }}
               >
                 ADD CABINET
-              </Button>
+              </Button> */}
 
               <div className={classes.search}>
                 <div className={classes.searchIcon}>
@@ -369,23 +383,24 @@ class CabinetPage extends Component {
                                   {cabinet.station_id.placename}
                                 </TableCell>
                                 <TableCell className={classes.tableCell}>
-                              <Tooltip title="Log" aria-label="log">
+                                <Tooltip title="Log" aria-label="log">
                                 <IconButton
                                   aria-label="log"
                                   size="small"
                                   style={{ marginLeft: "5px" }}
-                                  // onClick={() => {
-                                  //   this.setState({
-                                  //     modal: (
-                                  //       <UserFormDialog
-                                  //         value={user}
-                                  //         onClose={() => {
-                                  //           this.setState({ modal: null });
-                                  //         }}
-                                  //       />
-                                  //     ),
-                                  //   });
-                                  // }}
+                                  onClick={() => {
+                                    this.setState({
+                                      modal: (
+                                        <HistoryLogDialog
+                                          type={"Cabinet"}
+                                          id={cabinet._id}
+                                          onClose={() => {
+                                            this.setState({ modal: null });
+                                          }}
+                                        />
+                                      ),
+                                    });
+                                  }}
                                 >
                                   <AssignmentIcon />
                                 </IconButton>

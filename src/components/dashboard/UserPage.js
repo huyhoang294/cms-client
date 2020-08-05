@@ -30,6 +30,8 @@ import EditIcon from "@material-ui/icons/Edit";
 import PersonAddDisabledIcon from "@material-ui/icons/PersonAddDisabled";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import UserFormDialog from "../Form/UserFormDialog";
+import AssignmentIcon from "@material-ui/icons/Assignment";
+import HistoryLogDialog from "../Dialog/HistoryLogDialog";
 
 let CancelToken = null;
 let source = null;
@@ -148,11 +150,14 @@ class UserPage extends Component {
                       setTimeout(
                         (searchString) => {
                           axios
-                            .get("https://dhd-server.herokuapp.com/api/appuser/search", {
-                              params: {
-                                searchString: searchString,
-                              },
-                            })
+                            .get(
+                              "https://dhd-server.herokuapp.com/api/appuser/search",
+                              {
+                                params: {
+                                  searchString: searchString,
+                                },
+                              }
+                            )
                             .then((res) => {
                               this.setState({ user: res.data });
                             });
@@ -191,10 +196,13 @@ class UserPage extends Component {
                           aria-label="Ban"
                           onClick={() => {
                             axios
-                              .post("https://dhd-server.herokuapp.com/api/appuser/ban", {
-                                data: this.state.selected,
-                                status: false,
-                              })
+                              .post(
+                                "https://dhd-server.herokuapp.com/api/appuser/ban",
+                                {
+                                  data: this.state.selected,
+                                  status: false,
+                                }
+                              )
                               .then((res) => {
                                 if (res.data.success) {
                                   this.setState({ selected: [] });
@@ -212,10 +220,13 @@ class UserPage extends Component {
                           style={{ marginLeft: "5px" }}
                           onClick={() => {
                             axios
-                              .post("https://dhd-server.herokuapp.com/api/appuser/ban", {
-                                data: this.state.selected,
-                                status: true,
-                              })
+                              .post(
+                                "https://dhd-server.herokuapp.com/api/appuser/ban",
+                                {
+                                  data: this.state.selected,
+                                  status: true,
+                                }
+                              )
                               .then((res) => {
                                 if (res.data.success) {
                                   this.setState({ selected: [] });
@@ -228,7 +239,14 @@ class UserPage extends Component {
                       </Tooltip>
                     </div>
                   }
-                  tableHead={["Name", "Email", "Status", "Active", "Details"]}
+                  tableHead={[
+                    "Name",
+                    "Email",
+                    "Status",
+                    "Active",
+                    "Details",
+                    "History Log",
+                  ]}
                   numSelected={this.state.selected.length}
                   rowCount={
                     this.state.user.data ? this.state.user.data.length : 0
@@ -385,6 +403,30 @@ class UserPage extends Component {
                                 </IconButton>
                               </Tooltip>
                             </TableCell>
+                            <TableCell className={classes.tableCell}>
+                              <Tooltip title="Log" aria-label="log">
+                                <IconButton
+                                  aria-label="log"
+                                  size="small"
+                                  style={{ marginLeft: "5px" }}
+                                  onClick={() => {
+                                    this.setState({
+                                      modal: (
+                                        <HistoryLogDialog
+                                          type={"User"}
+                                          id={user._id}
+                                          onClose={() => {
+                                            this.setState({ modal: null });
+                                          }}
+                                        />
+                                      ),
+                                    });
+                                  }}
+                                >
+                                  <AssignmentIcon />
+                                </IconButton>
+                              </Tooltip>
+                            </TableCell>
                           </TableRow>
                         );
                       })}
@@ -428,7 +470,9 @@ class UserPage extends Component {
 
   listener() {
     axios
-      .get("https://dhd-server.herokuapp.com/api/appuser/listener", { cancelToken: source.token })
+      .get("https://dhd-server.herokuapp.com/api/appuser/listener", {
+        cancelToken: source.token,
+      })
       .then((res) => {
         if (res.data && this.state.searchString.length === 0) {
           this.updateUser();
