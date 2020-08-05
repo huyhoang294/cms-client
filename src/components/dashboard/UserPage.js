@@ -148,7 +148,7 @@ class UserPage extends Component {
                       setTimeout(
                         (searchString) => {
                           axios
-                            .get("/api/appuser/search", {
+                            .get("https://dhd-server.herokuapp.com/api/appuser/search", {
                               params: {
                                 searchString: searchString,
                               },
@@ -191,7 +191,7 @@ class UserPage extends Component {
                           aria-label="Ban"
                           onClick={() => {
                             axios
-                              .post("/api/appuser/ban", {
+                              .post("https://dhd-server.herokuapp.com/api/appuser/ban", {
                                 data: this.state.selected,
                                 status: false,
                               })
@@ -212,7 +212,7 @@ class UserPage extends Component {
                           style={{ marginLeft: "5px" }}
                           onClick={() => {
                             axios
-                              .post("/api/appuser/ban", {
+                              .post("https://dhd-server.herokuapp.com/api/appuser/ban", {
                                 data: this.state.selected,
                                 status: true,
                               })
