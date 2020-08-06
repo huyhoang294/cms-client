@@ -135,9 +135,7 @@ class UserFormDialog extends Component {
                 </Grid>
               </MuiPickersUtilsProvider>
             </Grid>
-          ) : null}
-
-          
+          ) : null}   
         </form>
         {this.state.modal}
       </DesktopDialog>
